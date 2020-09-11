@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Zeno Client</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="logging" id="log">
+        <p class="green">Welcome ! :D
+        </p><br>
+    </div>
+    <div class="footer">
+        <label for="version">Version </label>
+        <select name="version" id="version">
+            <option value="1.16.2">1.16.2</option>
+            <option value="1.16.1">1.16.1</option>
+            <option value="1.16">1.16</option>
+            <option value="1.15.2">1.15.2</option>
+            <option value="1.15.1">1.15.1</option>
+            <option value="1.15">1.15</option>
+            <option value="1.14.4">1.14.4</option>
+            <option value="1.14.3">1.14.3</option>
+            <option value="1.14.2">1.14.2</option>
+            <option value="1.14.1">1.14.1</option>
+            <option value="1.14">1.14</option>
+            <option value="1.13.2">1.13.2</option>
+            <option value="1.13.1">1.13.1</option>
+            <option value="1.13">1.13</option>
+            <option value="1.12.2">1.12.2</option>
+            <option value="1.12.1">1.12.1</option>
+            <option value="1.12">1.12</option>
+            <option value="1.11.2">1.11.2</option>
+            <option value="1.11.1">1.11.1</option>
+            <option value="1.11">1.11</option>
+            <option value="1.10.2">1.10.2</option>
+            <option value="1.10.1">1.10.1</option>
+            <option value="1.10">1.10</option>
+            <option value="1.9.4">1.9.4</option>
+            <option value="1.9.3">1.9.3</option>
+            <option value="1.9.2">1.9.2</option>
+            <option value="1.9.1">1.9.1</option>
+            <option value="1.9">1.9</option>
+            <option value="1.8.9">1.8.9</option>
+            <option value="1.8.8">1.8.8</option>
+            <option value="1.8.7">1.8.7</option>
+            <option value="1.8.6">1.8.6</option>
+            <option value="1.8.5">1.8.5</option>
+            <option value="1.8.4">1.8.4</option>
+            <option value="1.8.3">1.8.3</option>
+            <option value="1.8.2">1.8.2</option>
+            <option value="1.8.1">1.8.1</option>
+            <option value="1.8">1.8</option>
+            <option value="1.7.10">1.7.10</option>
+            <option value="1.7.9">1.7.9</option>
+            <option value="1.7.8">1.7.8</option>
+            <option value="1.7.7">1.7.7</option>
+            <option value="1.7.6">1.7.6</option>
+            <option value="1.7.5">1.7.5</option>
+            <option value="1.7.4">1.7.4</option>
+            <option value="1.7.3">1.7.3</option>
+            <option value="1.7.2">1.7.2</option>
+            <option value="1.6.4">1.6.4</option>
+            <option value="1.6.2">1.6.2</option>
+            <option value="1.6.1">1.6.1</option>
+            <option value="1.5.2">1.5.2</option>
+            <option value="1.5.1">1.5.1</option>
+            <option value="1.4.7">1.4.7</option>
+            <option value="1.4.5">1.4.5</option>
+            <option value="1.4.6">1.4.6</option>
+            <option value="1.4.4">1.4.4</option>
+            <option value="1.4.2">1.4.2</option>
+            <option value="1.3.2">1.3.2</option>
+            <option value="1.3.1">1.3.1</option>
+            <option value="1.2.5">1.2.5</option>
+            <option value="1.2.4">1.2.4</option>
+            <option value="1.2.3">1.2.3</option>
+            <option value="1.2.2">1.2.2</option>
+            <option value="1.2.1">1.2.1</option>
+            <option value="1.1">1.1</option>
+            <option value="1.0">1.0</option>
+        </select>
+        <label for="type">Type </label>
+        <select name="type" id="type" onchange="change(this.options[this.selectedIndex].value)">
+            <option value="0">Cracked</option>
+            <option value="1">Premium</option>
+        </select>
+        <label for="username">Username</label>
+        <input type="text" id="user" placeholder="Username" class="text">
+        <label for="password">Password</label>
+        <input type="text" placeholder="Password" id="pass" class="text" disabled>
+        <input type="button" value=">" id="launchButton" onclick="launch()">
+    </div>
+    <script>
+        var pass = document.getElementById('pass')
+        var t = document.getElementById('type')
+        var v = document.getElementById('version')
+
+        var change = (type) => {
+            if (type == "0") {
+                pass.disabled = true;
+            } else {
+                pass.disabled = false;
+            }
+        }
+
+        function launch() {
+            if (!document.getElementById('user').value) {
+                itWasWrong('Your Username is Blank')
+            } else {
+                if (t.options[t.selectedIndex].value == 1 && (!document.getElementById('pass').value)) {
+                    itWasWrong('Your Password is Blank')
+                } else {
+                    var op = {
+                        user: document.getElementById('user').value,
+                        pass: document.getElementById('pass').value,
+                        cracked: t.options[t.selectedIndex].value == 0 ? true : false,
+                        version: v.options[v.selectedIndex].value
+                    }
+                    window.launch(JSON.stringify(op))
+                    document.getElementById('launchButton').disabled = true;
+                    document.getElementById('user').disabled = true;
+                    document.getElementById('pass').disabled = true;
+                    document.getElementById('type').disabled = true;
+                    document.getElementById('version').disabled = true;
+                }
+            }
+        }
+
+        function doLog(log) {
+            document.getElementById('log').innerHTML += log;
+            document.getElementById('log').innerHTML += '<br>'
+        }
+
+        function itWasWrong(string) {
+            document.getElementById('launchButton').disabled = false;
+            document.getElementById('user').disabled = false;
+            document.getElementById('pass').disabled = false;
+            document.getElementById('type').disabled = false;
+            document.getElementById('version').disabled = false;
+            document.getElementById('log').innerHTML += `<p class="error">${string}</p>`;
+            document.getElementById('log').innerHTML += '<br>'
+        }
+    </script>
+</body>
+
+</html>

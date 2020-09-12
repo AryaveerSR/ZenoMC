@@ -108,10 +108,10 @@
 
         function launch() {
             if (!document.getElementById('user').value) {
-                itWasWrong('Your Username is Blank')
+                logError('Your Username is Blank')
             } else {
                 if (t.options[t.selectedIndex].value == 1 && (!document.getElementById('pass').value)) {
-                    itWasWrong('Your Password is Blank')
+                    logError('Your Password is Blank')
                 } else {
                     var op = {
                         user: document.getElementById('user').value,
@@ -129,12 +129,12 @@
             }
         }
 
-        function doLog(log) {
+        function log(log) {
             document.getElementById('log').innerHTML += log;
             document.getElementById('log').innerHTML += '<br>'
         }
 
-        function itWasWrong(string) {
+        function logError(string) {
             document.getElementById('launchButton').disabled = false;
             document.getElementById('user').disabled = false;
             document.getElementById('pass').disabled = false;

@@ -4,9 +4,9 @@ window.launch = (data) => {
 }
 
 ipcRenderer.on('log', (event, data) => {
-    doLog(data)
+    log(data)
 })
 
 ipcRenderer.on('wrongLogin', () => {
-    itWasWrong('Your Username/Password is wrong')
+    logError('Your Username/Password is wrong')
 })

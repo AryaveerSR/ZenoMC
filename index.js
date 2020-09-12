@@ -10,7 +10,7 @@ ipcMain.on('launch', (event, data) => {
         opts = {
             clientPackage: null,
             authorization: Authenticator.getAuth(obj.user, ""),
-            root: app.getPath('documents') + `/ZenoMC`,
+            root: `${app.getPath('documents')}/ZenoMC`,
             version: {
                 number: obj.version,
                 type: "release"
@@ -28,7 +28,7 @@ ipcMain.on('launch', (event, data) => {
         opts = {
             clientPackage: null,
             authorization: authResult,
-            root: app.getPath('documents') + `/ZenoMC`,
+            root: `${app.getPath('documents')}/ZenoMC`,
             version: {
                 number: obj.version,
                 type: "release"
@@ -64,7 +64,7 @@ function createWindow() {
     shortcut.register(win, 'F11', () => {
         win.setSimpleFullScreen(!win.isSimpleFullScreen())
     })
-    win.loadFile(__dirname + "/src/index.html")
+    win.loadFile(`${__dirname}/src/index.html`)
     win.removeMenu()
     win.maximize()
 }

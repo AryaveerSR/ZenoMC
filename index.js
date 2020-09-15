@@ -1,6 +1,14 @@
 const { app, screen, BrowserWindow, ipcMain } = require('electron');
 const shortcut = require('electron-localshortcut');
 const { Client, Authenticator } = require('minecraft-launcher-core');
+const axios = require('axios');
+
+ipcMain.on('getVersions', (event) => {
+    axios.get('https://launchermeta.mojang.com/mc/game/version_manifest.json')
+        .then(res => {
+            event.reply('versionJSON', res.data)
+        });
+})
 
 ipcMain.on('launch', (event, data) => {
     var win = BrowserWindow.getAllWindows()[0]
@@ -60,10 +68,11 @@ function createWindow() {
             preload: `${__dirname}/preload.js`,
             nodeIntergration: true
         }
-    })
+    });
     shortcut.register(win, 'F11', () => {
         win.setSimpleFullScreen(!win.isSimpleFullScreen())
-    })
+    });
+    win.webContents.openDevTools();
     win.loadFile(`${__dirname}/src/index.html`)
     win.removeMenu()
     win.maximize()
